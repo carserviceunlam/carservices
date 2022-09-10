@@ -1,0 +1,257 @@
+{% extends "base.html" %} {% load static %} {% load crispy_forms_tags %} {% block container %}
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  {% include "../side-nav.html" %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      {% include "../nav.html" %}
+
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        </div>
+        <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+              <strong>Empleado: </strong>
+              {{ employees.person.name}}
+            </h1>
+          </div>
+          <!-- Content Row -->
+          <div class="jusitfy-content-md-center">
+            <div class="p-4">
+              <form class="row" method="POST">
+                {% csrf_token %}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Dni</label>
+                  <input
+                    class="form-control {% if form.dni.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="dni"
+                    value="{% if form.errors %}{{ form.dni.value }}{% else %}{{ employees.person.dni }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.dni.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Nombre</label>
+                  <input
+                    class="form-control {% if form.name.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="name"
+                    value="{% if form.errors %}{{ form.name.value }}{% else %}{{ employees.person.name }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.name.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# CUIT field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>cuil</label>
+                  <input
+                    class="form-control {% if form.cuil.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="cuil"
+                    placeholder="00123456789"
+                    value="{% if form.errors %}{{ form.cuil.value }}{% else %}{{ employees.cuil }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.cuil.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# Lastname Person field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Apellido</label>
+                  <input
+                    class="form-control {% if form.last_name.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="last_name"
+                    placeholder="Juan Perez"
+                    value="{% if form.errors %}{{ form.last_name.value }}{% else %}{{ employees.person.last_name }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">
+                    {% for error in form.last_name.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+
+                {# birth day field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Fecha de nacimiento</label>
+                  <input
+                    class="form-control {% if form.birth_day.errors %}is-invalid{% endif %}"
+                    type="date"
+                    name="birth_day"
+                    value="{% if form.errors %}{{ form.birth_day.value }}{% else %}{{ employees.person.birth_day| date:"Y-m-d" }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">
+                    {% for error in form.birth_day.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+
+                {# city field #}
+                <div class="col-sm-12 col-md-12 form-group">
+                  <label>Ciudad</label>
+                  <select id="city" name="city">
+                    {%for city in cities %}
+                    {% if city.id == employees.person.city.id %}
+                    <option value="{% if form.errors %}{{ form.city.value }}{% else %}{{ city.id }}{% endif %}" selected="selected">{{employees.person.city}}</option>
+                    {% else %}
+                    <option value="{{city.id}}">{{city.name}}</option>
+                    {% endif %}"
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    {% for error in form.city.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+                {# phone fields #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Telefono</label>
+                  <input
+                    class="form-control {% if form.phone.errors %}is-invalid{% endif %} mb-2"
+                    type="text"
+                    name="phone"
+                    value="{% if form.errors %}{{ form.phone.value }}{% else %}{{ employees.person.phone }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.phone.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# mobile field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Celular</label>
+                  <input
+                    class="form-control {% if form.mobile.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="mobile"
+                    placeholder="4200 0024"
+                    value="{% if form.errors %}{{ form.mobile.value }}{% else %}{{ employees.person.mobile}}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.mobile.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# Email field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Email</label>
+                  <input
+                    class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="email"
+                    placeholder="+54 11 12345678"
+                    value="{% if form.errors %}{{ form.email.value }}{% else %}{{ employees.person.email }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.email.errors %} {{ error }} {% endfor %}</div>
+                </div>
+                <br/>
+                {# Address fields #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Dirección</label>
+                  <input
+                    class="form-control {% if form.address.errors %}is-invalid{% endif %} mb-2"
+                    type="text"
+                    name="address"
+                    value="{% if form.errors %}{{ form.address.value }}{% else %}{{ employees.person.address }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">
+                    {% for error in form.address_number.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Altura:</label>
+                  <input
+                    class="form-control {% if form.address_number.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="address_number"
+                    value="{% if form.errors %}{{ form.address_number.value }}{% else %}{{ employees.person.address_number }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">
+                    {% for error in form.address_number.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+
+                {# Position field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Posicion</label>
+                  <input
+                    class="form-control {% if form.position.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="position"
+                    value="{% if form.errors %}{{ form.position.value }}{% else %}{{ employees.position}}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.website.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# CBU field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>CBU</label>
+                  <input
+                    class="form-control {% if form.cbu.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="cbu"
+                    value="{% if form.errors %}{{ form.cbu.value }}{% else %}{{employees.bank_account.cbu}}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.cbu.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Banco</label>
+                  <input
+                    class="form-control {% if form.bank.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="bank"
+                    value="{% if form.errors %}{{ form.bank.value }}{% else %}{{ employees.bank_account.bank}}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.bank.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                  <button type="submit" class="btn btn-primary btn-block mt-5">Guardar</button>
+                </div>
+
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                  <a href="{% url 'companies_list' %}" class="btn btn-warning btn-block mt-2">Cancelar</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <! -- -->
+
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Your Website 2020</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+
+    <!--
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+    {% include "../create_item-component.html" with item="employee"%} {% endblock %}
+  </div>
+</div>
+</body>

@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block container %}
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  {% include "../side-nav.html" %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      {% include "../nav.html" %}
+
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">
+            <strong>Aseguradora: </strong>
+            {{ companies.business_name }}
+          </h1>
+        </div>
+
+        <!-- Content Row -->
+        <div class="jusitfy-content-md-center">
+          <div class="p-4">
+
+            <form class="row" method="POST">
+                {% csrf_token %}
+
+                {# Business Name field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Razon Social</label>
+                    <input
+                        class="form-control {% if form.business_name.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="business_name"
+                        placeholder="Nombre Aseguradora"
+                        value="{% if form.errors %}{{ form.business_name.value }}{% else %}{{ companies.business_name }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.business_name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# CUIT field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>CUIT</label>
+                    <input
+                        class="form-control {% if form.cuit.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="cuit"
+                        placeholder="00123456789"
+                        value="{% if form.errors %}{{ form.cuit.value }}{% else %}{{ companies.cuit }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.cuit.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Contact Person field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Persona de contacto</label>
+                    <input
+                        class="form-control {% if form.contact_person.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="contact_person"
+                        placeholder="Juan Perez"
+                        value="{% if form.errors %}{{ form.contact_person.value }}{% else %}{{ companies.contact_person }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.contact_person.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# City field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Localidad</label>
+                   <select id="city_name" name="city_name">
+                    {%for city in cities %}
+                    {% if city.id == companies.city.id %}
+                    <option value="{% if form.errors %}{{ form.city.value }}{% else %}{{ city.id }}{% endif %}" selected="selected">{{companies.city}}</option>
+                    {% else %}
+                    <option value="{{city.id}}">{{city.name}}</option>
+                    {% endif %}"
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    {% for error in form.city.errors %} {{ error }} {% endfor %}
+                  </div>
+
+                    <div class="invalid-feedback">
+                        {% for error in form.city_name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Bank Account fields #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Cuenta Bancaria</label>
+                    <input
+                        class="form-control {% if form.bank_account.errors %}is-invalid{% endif %} mb-2"
+                        type="text"
+                        name="bank_account_name"
+                        value="{% if form.errors %}{{ form.bank_account_name.value }}{% else %}{{ companies.bank_account.bank }}{% endif %}"
+                    />
+                    <input
+                        class="form-control {% if form.bank_account.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="bank_account_cbu"
+                        value="{% if form.errors %}{{ form.bank_account_cbu.value }}{% else %}{{ companies.bank_account.cbu }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.bank_account.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Phone field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Telefono</label>
+                    <input
+                        class="form-control {% if form.phone.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="phone"
+                        placeholder="4200 0024"
+                        value="{% if form.errors %}{{ form.phone.value }}{% else %}{{ companies.phone }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.phone.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Mobile field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Celular</label>
+                    <input
+                        class="form-control {% if form.mobile.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="mobile"
+                        placeholder="+54 11 12345678"
+                        value="{% if form.errors %}{{ form.mobile.value }}{% else %}{{ companies.mobile }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.mobile.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Address fields #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Dirección</label>
+                    <input
+                        class="form-control {% if form.address.errors %}is-invalid{% endif %} mb-2"
+                        type="text"
+                        name="address"
+                        value="{% if form.errors %}{{ form.address.value }}{% else %}{{ companies.address }}{% endif %}"
+                    />
+                    <input
+                        class="form-control {% if form.address_number.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="address_number"
+                        value="{% if form.errors %}{{ form.address_number.value }}{% else %}{{ companies.address_number }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.address_number.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Email field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Correo electrónico</label>
+                    <input
+                        class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="email"
+                        placeholder="ejemplo@email.com"
+                        value="{% if form.errors %}{{ form.email.value }}{% else %}{{ companies.email }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Website field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Web</label>
+                    <input
+                        class="form-control {% if form.website.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="website"
+                        placeholder="ejemplo.com.ar"
+                        value="{% if form.errors %}{{ form.website.value }}{% else %}{{ companies.website }}{% endif %}"
+                    />
+                    <div class="invalid-feedback">
+                        {% for error in form.website.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Details field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Detalles</label>
+                    <textarea
+                        class="form-control {% if form.details.errors %}is-invalid{% endif %}"
+                        rows="3"
+                        name="details"
+                    >{% if form.errors %}{{ form.details.value }}{% else %}{{ companies.details }}{% endif %}</textarea>
+                    <div class="invalid-feedback">
+                        {% for error in form.details.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# State field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                    <label>Estado</label>
+                    <select
+                        class="form-control {% if form.state.errors %}is-invalid{% endif %}"
+                        name="state"
+                        id="state">
+                      {% if companies.state == 'Activa' %}
+                        <option value="Activa" selected>Activa</option>
+                        <option value="Inactiva">Inactiva</option>
+                      {% else %}
+                        <option value="Activa">Activa</option>
+                        <option value="Inactiva" selected>Inactiva</option>
+                      {% endif %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% for error in form.state.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                  <button type="submit" class="btn btn-primary btn-block mt-5">Guardar</button>
+                </div>
+
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                  <a href="{% url 'companies_list' %}" class="btn btn-warning btn-block mt-2">Cancelar</a>
+                </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+<style type="text/css" media="screen">
+.delete-text {
+  font-size: 18px;
+  color: #ff5050;
+  font-weight: bold;
+  float: left;
+}
+.delete-text i {
+  font-size: 67px;
+}
+.delete-form {
+    width: 60%;
+}
+</style>
+{% endblock %}
+
+{% block container %}
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  {% include "../side-nav.html" %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      
+      {% include "../nav.html" %}
+
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Aseguradoras</h1>
+        </div>
+        <br><br>
+        <div class="row justify-content-center">
+            <form method="post" class="delete-form">
+                {% csrf_token %}
+                <p class="delete-text" style="width: 20%; text-align: center;">
+                    <i class='fas fa-exclamation-triangle'></i>
+                </p>
+                <p class="delete-text" style="width: 80%;">
+                    ¿Estás seguro de que quieres eliminar: <br>
+                    "{{ object }}" ?
+                </p>
+                <br>
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                    <button type="submit" class="btn btn-danger btn-block mt-5">Confirmar</button>
+                </div>
+  
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                    <a href="{% url 'companies_list' %}" class="btn btn-secondary btn-block mt-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+      </div>
+
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+</body>
+{% endblock %}

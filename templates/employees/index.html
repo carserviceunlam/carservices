@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block container %}
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  {% include "../side-nav.html" %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      {% include "../nav.html" %}
+
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Empleados</h1>
+           <a href="{% url 'employees_create' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm"></i>
+            Crear nuevo empelado
+          </a>
+        </div>
+        <div class="row">
+
+          <!-- Pending Requests Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"> Empleados</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{employees|length}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Content Row -->
+        <div class="row">
+          <p>Here go the content</p>
+
+          <p>{{ employee.person.name }}</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">Dni</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Nacimiento</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Celular</th>
+                <th scope="col">Email</th>
+<!--                <th scope="col">Provincia</th>-->
+<!--                <th scope="col">Localidad</th>-->
+                <th scope="col">Ciudad</th>
+                <th scope="col">Direccion de calle</th>
+                <th scope="col">Numero de calle</th>
+                <th scope="col">Cuil</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for employee in employees %}
+              <tr>
+                <td>{{ employee.person.dni }}</td>
+                <td>{{ employee.person.last_name }}</td>
+                <td>{{ employee.person.name }}</td>
+                <td>{{ employee.person.birth_day|date:"Y-m-d"}}</td>
+                <td>{{ employee.person.phone }}</td>
+                <td>{{ employee.person.mobile }}</td>
+                <td>{{ employee.person.email }}</td>
+                <td>{{ employee.person.city }}</td>
+                <td>{{ employee.person.address }}</td>
+                <td>{{ employee.person.address_number }}</td>
+                <td>{{ employee.cuil }}</td>
+                <td>
+                  <a class="btn btn-outline-light text-danger"
+                     href="{% url 'employees_delete' employee.id %}"
+                     title="Eliminar">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </a>
+                  <a class="bt btn-outline-light text-primary"
+                     href="{% url 'employees_detail' employee.cuil %}"
+                     title="Editar">
+                    <i class="fas fa-edit" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+{% include "../create_item-component.html" with item="employee"%}
+</body>
+{% endblock %}

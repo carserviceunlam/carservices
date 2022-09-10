@@ -1,0 +1,47 @@
+*.py[co]
+*.DS_*
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+
+#virtual environment and python compile
+.venv
+*.pyc
+.env
+
+#editor
+.vim
+.idea
+.vscode
+glide.sublime-project
+glide.sublime-workspace
+env**
+env/
+.python-version
+coc-settings.json
+migrations/
+*.db
+*.sublime-project
+*.sublime-workspace
+tags
+
+# celery
+celerybeat-schedule

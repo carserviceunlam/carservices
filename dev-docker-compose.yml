@@ -1,0 +1,45 @@
+# This is a dev docker configuration to run in dev environment
+# In this setup, I set all in containers except python code
+# to use the debugger.
+
+# The network bridge configuration is necessary to make the conection between the code
+# and database
+
+version: "3"
+
+services:
+    redis:
+        image: "redis:5.0.4-stretch"
+        volumes:
+            - "redis:/data"
+        ports:
+            - "6379:6379"
+        networks:
+            - nginx_network
+
+    # --------------------------------------------------------------------------------------
+    # Database container - only for development
+    # --------------------------------------------------------------------------------------
+    db:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_DATABASE: "db"
+            MYSQL_USER: "user"
+            MYSQL_PASSWORD: "password"
+            MYSQL_ROOT_PASSWORD: "password"
+        ports:
+            # <Port exposed> : < MySQL Port running inside container>
+            - "3306:3306"
+        volumes:
+            - my-db:/var/lib/mysql
+        networks:
+            - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+
+volumes:
+    redis: {}
+    my-db:

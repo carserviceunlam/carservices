@@ -1,0 +1,4 @@
+# In case you are running even in WSL or in linux, 
+# to run a mysql library for python you should have
+# install this dependency
+sudo apt-get install libmysqlclient-dev

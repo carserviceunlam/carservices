@@ -1,0 +1,241 @@
+{% extends "base.html" %} {% load static %} {% load crispy_forms_tags %} {% block container %}
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  {% include "../side-nav.html" %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      {% include "../nav.html" %}
+
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        </div>
+        <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+              <strong>Vehiculo: </strong>
+              {{ vehicles.plate_number}}
+            </h1>
+          </div>
+          <!-- Content Row -->
+          <div class="jusitfy-content-md-center">
+            <div class="p-4">
+              <form class="row" method="POST">
+                {% csrf_token %}
+
+                {# Plate number field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Numero de Patente</label>
+                  <input
+                    class="form-control {% if form.plate_number.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="plate_number"
+                    value="{% if form.errors %}{{ form.plate_number.value }}{% else %}{{ vehicles.plate_number }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.dni.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# Brand field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Marca</label>
+                  <input
+                    class="form-control {% if form.brand.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="brand"
+                    value="{% if form.errors %}{{ form.brand.value }}{% else %}{{ vehicles.brand }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.brand.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# Model field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Modelo</label>
+                  <input
+                    class="form-control {% if form.model.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="model"
+                    placeholder="00123456789"
+                    value="{% if form.errors %}{{ form.model.value }}{% else %}{{ vehicles.model }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.cuil.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# color code  #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Codigo de color</label>
+                  <input
+                    class="form-control {% if form.color_code.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="color_code"
+                    placeholder="Juan Perez"
+                    value="{% if form.errors %}{{ form.color_code.value }}{% else %}{{ vehicles.color_code }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">
+                    {% for error in form.last_name.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+
+                {# color #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Color</label>
+                  <input
+                    class="form-control {% if form.color.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="color"
+                    value="{% if form.errors %}{{ form.color.value }}{% else %}{{ vehicles.color }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">
+                    {% for error in form.birth_day.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+
+                {# Fuel field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Combustible</label>
+                  <input
+                    class="form-control {% if form.fuel.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="fuel"
+                    placeholder="00123456789"
+                    value="{% if form.errors %}{{ form.fuel.value }}{% else %}{{ vehicles.fuel }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.fuel.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# Kilometers field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Kilometros</label>
+                  <input
+                    class="form-control {% if form.kilometers.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="kilometers"
+                    placeholder="00123456789"
+                    value="{% if form.errors %}{{ form.kilometers.value }}{% else %}{{ vehicles.kilometers }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.fuel.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+
+                {# STATE field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Estado</label>
+                  <input
+                    class="form-control {% if form.kilometers.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="state"
+                    placeholder="00123456789"
+                    value="{% if form.errors %}{{ form.state.value }}{% else %}{{ vehicles.state }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.fuel.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# detail field #}
+                <div class="col-sm-12 col-md-6 form-group">
+                  <label>Detalle</label>
+                  <input
+                    class="form-control {% if form.details.errors %}is-invalid{% endif %}"
+                    type="text"
+                    name="detail"
+                    placeholder="put here your details"
+                    value="{% if form.errors %}{{ form.detail.value }}{% else %}{{ vehicles.detail }}{% endif %}"
+                  />
+                  <div class="invalid-feedback">{% for error in form.detail.errors %} {{ error }} {% endfor %}</div>
+                </div>
+
+                {# company field #}
+                <div class="col-sm-12 col-md-12 form-group">
+                  <label>Compania</label>
+                  <select id="company" name="company">
+                    {%for company in companies %}
+                    {% if company.id == vehicles.company.id %}
+                    <option value="{% if form.errors %}{{ form.company.value }}{% else %}{{ company.id }}{% endif %}"
+                            selected="selected">{{vehicles.company}}
+                    </option>
+                    {% else %}
+                    <option value="{{company.id}}">{{company.name}}</option>
+                    {% endif %}"
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    {% for error in form.city.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+
+                {# customer field #}
+                <div class="col-sm-12 col-md-12 form-group">
+                  <label>Cliente</label>
+                  <select id="customer" name="customer">
+                    {%for customer in customers %}
+                    {% if customer.id == vehicles_owner.customer.id %}
+                    <option value="{% if form.errors %}{{ form.customer.value }}{% else %}{{ customer.id }}{% endif %}"
+                            selected="selected">{{vehicles_owner.customer.business_name}}
+                    </option>
+                    {% else %}
+                    <option value="{{customer.id}}">{{customer.business_name}}</option>
+                    {% endif %}"
+                    {% endfor %}
+
+                  </select>
+                  <div class="invalid-feedback">
+                    {% for error in form.city.errors %} {{ error }} {% endfor %}
+                  </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                  <button type="submit" class="btn btn-primary btn-block mt-5">Guardar</button>
+                </div>
+
+                <div class="col-sm-12 col-md-4 offset-md-4 justify-content-center">
+                  <a href="{% url 'vehicles_list' %}" class="btn btn-warning btn-block mt-2">Cancelar</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <! -- -->
+
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Your Website 2020</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+
+    <!--
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+    {% include "../create_item-component.html" with item="employee"%} {% endblock %}
+  </div>
+</div>
+</body>

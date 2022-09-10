@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+<style type="text/css" media="screen">
+#id_localidad, #id_tipo, #id_estado {
+  display: inline-block;
+  width: 100%;
+}
+</style>
+{% endblock %}
+
+{% block container %}
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  {% include "../side-nav.html" %}
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      
+      {% include "../nav.html" %}
+
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Crear Nueva Aseguradora</h1>
+        </div>
+        <!-- Content Row -->
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <form method="POST" class="text-justify" action="{% url 'company_create' %}">
+              {% csrf_token  %}
+
+              {# Localidad field #}
+              <div class="form-group">
+                <label>Localidad:</label><br>
+                {{ form.localidad }}
+                <div class="invalid-feedback">
+                  {% for error in form.localidad.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Banco field #}
+              <div class="form-group">
+                <label>Banco:</label>
+                <input
+                  class="form-control {% if form.banco.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="banco"
+                  placeholder="Ej: Galicia">
+                <div class="invalid-feedback">
+                  {% for error in form.banco.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Banco CBU field #}
+              <div class="form-group">
+                <label>Banco CBU:</label>
+                <input
+                  class="form-control {% if form.banco.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="banco_cbu"
+                  placeholder="Ej: 1234567890123456789022">
+                <div class="invalid-feedback">
+                  {% for error in form.banco_cbu.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# CUIT field #}
+              <div class="form-group">
+                <label>CUIT:</label>
+                <input
+                  class="form-control {% if form.cuit.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="cuit"
+                  placeholder="Ej: 20123456784">
+                <div class="invalid-feedback">
+                  {% for error in form.cuit.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Razon Social field #}
+              <div class="form-group">
+                <label>Razon Social:</label>
+                <input
+                  class="form-control {% if form.razon_social.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="razon_social"
+                  placeholder="Nombre de la Aseguradora">
+                <div class="invalid-feedback">
+                  {% for error in form.razon_social.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Persona Contacto field #}
+              <div class="form-group">
+                <label>Persona De Contacto:</label>
+                <input
+                  class="form-control {% if form.persona_de_contacto.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="persona_de_contacto"
+                  placeholder="Ej: Juan Perez">
+                <div class="invalid-feedback">
+                  {% for error in form.persona_de_contacto.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Telefono field #}
+              <div class="form-group">
+                <label>Telefono:</label>
+                <input
+                  class="form-control {% if form.telefono.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="telefono"
+                  placeholder="Ej: 1142004244">
+                <div class="invalid-feedback">
+                  {% for error in form.telefono.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Celular field #}
+              <div class="form-group">
+                <label>Celular:</label>
+                <input
+                  class="form-control {% if form.celular.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="celular"
+                  placeholder="Ej: 1123452345">
+                <div class="invalid-feedback">
+                  {% for error in form.celular.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Direccion field #}
+              <div class="form-group">
+                <label>Dirección:</label>
+                <input
+                  class="form-control {% if form.direccion.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="direccion"
+                  placeholder="Ej: Calle Falsa">
+                <div class="invalid-feedback">
+                  {% for error in form.direccion.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Altura field #}
+              <div class="form-group">
+                <label>Altura:</label>
+                <input
+                  class="form-control {% if form.numero.errors %}is-invalid{% endif %}"
+                  type="number"
+                  name="numero"
+                  placeholder="Ej: 2021">
+                <div class="invalid-feedback">
+                  {% for error in form.numero.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Correo Electronico field #}
+              <div class="form-group">
+                <label>Correo Electronico:</label>
+                <input
+                  class="form-control {% if form.correo_electronico.errors %}is-invalid{% endif %}"
+                  type="email"
+                  name="correo_electronico"
+                  placeholder="Ej: cosme.fulanito@mail.com">
+                <div class="invalid-feedback">
+                  {% for error in form.correo_electronico.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Sitio Web field #}
+              <div class="form-group">
+                <label>Sitio Web:</label>
+                <input
+                  class="form-control {% if form.sitio_web.errors %}is-invalid{% endif %}"
+                  type="url"
+                  name="sitio_web"
+                  placeholder="Ej: http://sitio-web.com.ar">
+                <div class="invalid-feedback">
+                  {% for error in form.sitio_web.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Detalles field #}
+              <div class="form-group">
+                <label>Detalles:</label>
+                <input
+                  class="form-control {% if form.detalles.errors %}is-invalid{% endif %}"
+                  type="text"
+                  name="detalles">
+                <div class="invalid-feedback">
+                  {% for error in form.detalles.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+              {# Estado field #}
+              <div class="form-group">
+                <label>Estado:</label><br>
+                {{ form.estado }}
+                <div class="invalid-feedback">
+                  {% for error in form.localidad.errors %}{{ error }}{% endfor %}
+                </div>
+              </div>
+
+            <br>
+            <div class="row">
+              <div class="col-12 justify-content-center">
+                <button class="btn btn-primary btn-block mt-2" type="submit">Crear</button>
+              </div>
+              <div class="col-12 justify-content-center">
+                <a href="{% url 'companies_list' %}" class="btn btn-warning btn-block mt-2" type="button" data-dismiss="modal">Cancelar</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        </div>
+
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+</body>
+{% endblock %}
