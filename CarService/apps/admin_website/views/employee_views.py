@@ -8,30 +8,38 @@ from CarService.apps.admin_website.views.serializers.employee_serializer import 
     EmployeeSerializer,
 )
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, FormView, View
 
 
-class EmployeePage(LoginRequiredMixin, View):
+class EmployeePage(LoginRequiredMixin, PermissionRequiredMixin, View):
     """
     class to handler index view.
     return: index view with the list of employees
     """
 
+    permission_required = "admin_website.view_employee"
+
+    username = None
     template_name = "employees/index.html"
 
     def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            EmployeePage.username = self.request.user.username
+        print(self.request.user.get_all_permissions())
         employees = Employee.objects.all()
         return render(request, self.template_name, {"employees": employees})
 
 
-class EmployeeCreate(LoginRequiredMixin, FormView):
+class EmployeeCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
     """
     Class to handler Create view.
     return: Create the user, and is succesful return to main employee page
     """
+
+    permission_required = "admin_website.view_employee"
 
     template_name = "employees/create_employee.html"
     form_class = EmployeeForm
@@ -43,11 +51,13 @@ class EmployeeCreate(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-class EmployeeDelete(LoginRequiredMixin, DeleteView):
+class EmployeeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     Class to handler delete user
     return: Delete the user, and is succesful return the main employee page
     """
+
+    permission_required = "admin_website.view_employee"
 
     model = Employee
 

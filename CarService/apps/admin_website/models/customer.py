@@ -7,14 +7,12 @@ class Customer(models.Model):
     """customer model representation"""
 
     business_name = models.CharField(max_length=128)
-    cuit = models.CharField(max_length=255, default='')
-    status = models.BooleanField(default='True')
+    cuit = models.CharField(max_length=255, default="")
+    status = models.BooleanField(default="True")
     last_name = models.CharField(max_length=64)
-    person = models.ForeignKey(Person,
-                               default=None,
-                               blank=True,
-                               null=True,
-                               on_delete=models.CASCADE)
+    person = models.ForeignKey(
+        Person, default=None, blank=True, null=True, on_delete=models.CASCADE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -33,6 +31,7 @@ class Customer(models.Model):
         self.person.city = Cities.objects.get(pk=data["city"])
         self.person.address = data["address"]
         self.person.address_number = data["address_number"]
+        self.status = data["status"]
 
     def __str__(self):
         return self.business_name

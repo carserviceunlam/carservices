@@ -28,7 +28,7 @@ from CarService.apps.admin_website.views.company_views import (
     ListCompaniesView,
     EditCompanyView,
     CreateCompanyView,
-    CompanyDelete
+    CompanyDelete,
 )
 from CarService.apps.admin_website.views.budget_view import (
     BudgetList,
@@ -43,14 +43,16 @@ from CarService.apps.admin_website.views.repair_views import (
     RepairCreateView,
 )
 from CarService.apps.admin_website.views.provider_views import ListProvidersView
+from CarService.apps.admin_website.views.index_view import IndexView
 
 
 urlpatterns = [
-    path('companies', ListCompaniesView.as_view(), name='companies_list'),
-    path('company/<int:id>/edit', EditCompanyView.as_view(), name='company_edit'),
+    path("", IndexView.as_view(), name="index"),
+    path("companies", ListCompaniesView.as_view(), name="companies_list"),
+    path("company/<int:id>/edit", EditCompanyView.as_view(), name="company_edit"),
     path("company/create", CreateCompanyView.as_view(), name="company_create"),
     path("company/<pk>/delete", CompanyDelete.as_view(), name="company_delete"),
-    path("", EmployeePage.as_view(), name="employees_list"),
+    path("employees", EmployeePage.as_view(), name="employees_list"),
     path("employees/create/", EmployeeCreate.as_view(), name="employees_create"),
     path("employees/<pk>/delete/", EmployeeDelete.as_view(), name="employees_delete"),
     path(
@@ -60,20 +62,21 @@ urlpatterns = [
     ),
     path("customers/", CustomerView.as_view(), name="customer_list"),
     path("customers/create/", CustomerCreate.as_view(), name="customer_create"),
-    path("customers/create/business",
-         CustomerCreateBusiness.as_view(),
-         name="customer_create_business"),
-
-    path("customers/<pk>/update/",
-         CustomerUpdateBusinessView.as_view(),
-         name="customer_update_business"),
+    path(
+        "customers/create/business",
+        CustomerCreateBusiness.as_view(),
+        name="customer_create_business",
+    ),
+    path(
+        "customers/<pk>/update/",
+        CustomerUpdateBusinessView.as_view(),
+        name="customer_update_business",
+    ),
     path("customers/<int:id>/edit", CustomerDetailView.as_view(), name="customer_edit"),
     path("customers/<pk>/delete/", CustomerDelete.as_view(), name="customer_delete"),
     path("vehicles/", VehicleView.as_view(), name="vehicles_list"),
-    path("vehicles/create/", VehicleCreateView.as_view(), name="vehicles"
-                                                               "_create"),
-    path("vehicles/<int:id>/edit/", VehicleDetailView.as_view(),
-         name="vehicle_edit"),
+    path("vehicles/create/", VehicleCreateView.as_view(), name="vehicles" "_create"),
+    path("vehicles/<int:id>/edit/", VehicleDetailView.as_view(), name="vehicle_edit"),
     path("vehicles/<pk>/delete/", VehicleDelete.as_view(), name="vehicles_delete"),
     path("providers", ListProvidersView.as_view(), name="providers_list"),
     path("budget/", BudgetList.as_view(), name="budget_list"),

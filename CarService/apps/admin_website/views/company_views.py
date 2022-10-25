@@ -1,5 +1,5 @@
 # Django
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -20,10 +20,12 @@ from CarService.apps.admin_website.models.cities import Cities
 from CarService.apps.admin_website.models.companies import Companies
 
 
-class ListCompaniesView(LoginRequiredMixin, ListView):
+class ListCompaniesView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Return all providers created.
     """
+
+    permission_required = "admin_website.view_companies"
 
     template_name = "companies/index.html"
     model = Companies
@@ -38,18 +40,20 @@ class ListCompaniesView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         """Add another object to context."""
         context = super().get_context_data(**kwargs)
-        active_companies = Companies.objects.filter(state='Activa')
-        total_companies = Companies.objects.filter(company_type='Aseguradora')
+        active_companies = Companies.objects.filter(state="Activa")
+        total_companies = Companies.objects.filter(company_type="Aseguradora")
         try:
             active_percent = int((len(active_companies) * 100) / len(total_companies))
         except:
             active_percent = 0
-        context['active_percent'] = active_percent
+        context["active_percent"] = active_percent
         return context
 
 
-class EditCompanyView(LoginRequiredMixin, View):
+class EditCompanyView(LoginRequiredMixin, PermissionRequiredMixin, View):
     """Edit company view."""
+
+    permission_required = "admin_website.view_companies"
 
     def get(self, request, *args, **kwargs):
         form = CompanyForm()
@@ -59,11 +63,7 @@ class EditCompanyView(LoginRequiredMixin, View):
         return render(
             request=request,
             template_name="companies/edit.html",
-            context={
-                "companies": company,
-                "form": form,
-                "cities": cities
-            },
+            context={"companies": company, "form": form, "cities": cities},
         )
 
     def post(self, request, *args, **kwargs):
@@ -106,26 +106,26 @@ class EditCompanyView(LoginRequiredMixin, View):
             )
 
 
-class CreateCompanyView(LoginRequiredMixin, View):
+class CreateCompanyView(LoginRequiredMixin, PermissionRequiredMixin, View):
     """
     Class to handler Create view.
     """
+
+    permission_required = "admin_website.view_companies"
 
     def get(self, request, *args, **kwargs):
         form = CreateCompanyForm()
         return render(
             request=request,
-            template_name='companies/create.html',
-            context={
-                'form': form
-            }
+            template_name="companies/create.html",
+            context={"form": form},
         )
 
     def post(self, request, *args, **kwargs):
         form = CreateCompanyForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('companies_list')
+            return redirect("companies_list")
         else:
             return render(
                 request=request,
@@ -134,11 +134,13 @@ class CreateCompanyView(LoginRequiredMixin, View):
             )
 
 
-class CompanyDelete(LoginRequiredMixin, DeleteView):
+class CompanyDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     class to delete register
     return a view to accept delete the record
     """
+
+    permission_required = "admin_website.view_companies"
 
     model = Companies
 

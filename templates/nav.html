@@ -20,6 +20,11 @@
       </div>
     </form>
 
+    
+
+    <a class="btn btn-primary" target="_blank" href="http://carservice.com/{{ user.username }}" role="button">Pagina Comercial</a>
+
+
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
@@ -61,16 +66,16 @@
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="{% url 'session:profile' request.user.username %}">
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-            Profile
+            Perfil
           </a>
-          <a class="dropdown-item" href="#">
+          <!--<a class="dropdown-item" href="#">
             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-            Settings
-          </a>
+            Ajustes
+          </a>-->
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#salir" data-toggle="modal" data-target="#exitModal">
             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-            Logout
+            Cerrar Sesion
           </a>
         </div>
       </li>

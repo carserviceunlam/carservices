@@ -11,6 +11,7 @@ class BudgetList(LoginRequiredMixin, ListView):
     class to handler the index view
     return: index view with te list of the budgets
     """
+
     template_name = "budgets/index.html"
     models = Budget
     paginate_by = 30
@@ -24,7 +25,7 @@ class BudgetList(LoginRequiredMixin, ListView):
 
 class BudgetDetailView(LoginRequiredMixin, UpdateView):
     model = Budget
-    fields = ['owner', 'state', 'detail', 'real_cost', 'estimated_cost']
+    fields = ["owner", "state", "detail", "real_cost", "estimated_cost"]
     # remember this is looking for a template with prefix classmodel
     template_name = "budgets/budget_update_form.html"
     success_url = reverse_lazy("budget_list")
@@ -35,6 +36,7 @@ class BudgetCreateView(LoginRequiredMixin, FormView):
     class to handler a create view
     return: create the budget. is success return to main budget page
     """
+
     template_name = "budgets/create.html"
     form_class = BudgetForm
     success_url = reverse_lazy("budget_list")

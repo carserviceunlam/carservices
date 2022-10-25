@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, FormView, View, ListView
@@ -9,11 +9,13 @@ from CarService.apps.admin_website.models.vehicle_owner import VehicleOwner
 from CarService.apps.admin_website.models.vehicles import Vehicles
 
 
-class VehicleView(LoginRequiredMixin, ListView):
+class VehicleView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     class to handler the index view
     return: index view with the list of vehicles
     """
+
+    permission_required = "admin_website.view_vehicles"
 
     template_name = "vehicles/index.html"
     model = Vehicles
@@ -31,6 +33,7 @@ class VehicleDetailView(LoginRequiredMixin, FormView):
     class to handler the detail view of the vehicle
     return: index view with te list of vehicles
     """
+
     template_name = "vehicles/detail.html"
 
     def get(self, request, *args, **kwargs):
@@ -43,11 +46,13 @@ class VehicleDetailView(LoginRequiredMixin, FormView):
         return render(
             request=request,
             template_name=self.template_name,
-            context={"vehicles": queryset,
-                     "companies": companies,
-                     "customers": customers,
-                     "vehicles_owner": vehicles_owners,
-                     "form": form}
+            context={
+                "vehicles": queryset,
+                "companies": companies,
+                "customers": customers,
+                "vehicles_owner": vehicles_owners,
+                "form": form,
+            },
         )
 
     def post(self, request, *args, **kwargs):
@@ -63,11 +68,13 @@ class VehicleDetailView(LoginRequiredMixin, FormView):
             )
 
 
-class VehicleCreateView(LoginRequiredMixin, FormView):
+class VehicleCreateView(LoginRequiredMixin, PermissionRequiredMixin, FormView):
     """
     class to handler a create view of vehicle
     return: create the vehicle. and is success return to main vehicle page
     """
+
+    permission_required = "admin_website.view_vehicles"
 
     template_name = "vehicles/create_vehicle.html"
     form_class = VehicleForm
@@ -79,11 +86,13 @@ class VehicleCreateView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-class VehicleDelete(LoginRequiredMixin, DeleteView):
+class VehicleDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     class to delete register
     return a view to accept delete the record
     """
+
+    permission_required = "admin_website.view_vehicles"
 
     model = Vehicles
 

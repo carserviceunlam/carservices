@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+import MySQLdb
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -86,8 +88,46 @@ DATABASES = {
         "PASSWORD": "Service2022",
         "HOST": "carservicedb.cs231rwbvyll.us-east-1.rds.amazonaws.com",
         "PORT": "3306",
-    }
+    },
 }
+
+DATABASE_ROUTERS = ["CarService.db_routers.Admin_websiteRouter"]
+
+try:
+    conn = MySQLdb.connect(
+        host="carservicedb.cs231rwbvyll.us-east-1.rds.amazonaws.com",
+        user="admin",
+        passwd="Service2022",
+        db="carservicedb",
+    )
+    cursor = conn.cursor()
+    cursor.execute("SELECT username FROM carservicedb.auth_user")
+    # row = cursor.fetchone()
+    # print(row[0])
+
+    for row in cursor:
+        # print(row[0])
+        _DATABASES = {
+            row[0]: {
+                "ENGINE": "django.db.backends.mysql",
+                "NAME": f"{row[0]}",
+                "USER": "admin",
+                "PASSWORD": "Service2022",
+                "HOST": "carservicedb.cs231rwbvyll.us-east-1.rds.amazonaws.com",
+                "PORT": "3306",
+            },
+        }
+        for k, v in _DATABASES.items():
+            if k in DATABASES:
+                DATABASES[k].update(v)
+            else:
+                DATABASES[k] = v
+            # print(DATABASES)
+
+    cursor.close()
+    conn.close()
+except Exception:
+    pass
 
 
 # Password validation
@@ -131,6 +171,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Login Settings
-LOGIN_URL = '/session/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = "/session/login/"
+LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = LOGIN_URL

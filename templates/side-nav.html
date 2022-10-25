@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'customer_list' %}">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
     <div class="sidebar-brand-icon">
       <i class="fas fa-car"></i>
     </div>
@@ -14,7 +14,7 @@
 
   <!-- Nav Item - Dashboard -->
   <li class="nav-item active">
-    <a class="nav-link" href="{% url 'customer_list' %}">
+    <a class="nav-link" href="{% url 'index' %}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard</span></a>
   </li>
@@ -24,80 +24,89 @@
 
   <!-- Heading -->
   <div class="sidebar-heading">
-    Interface
+    Interfase
   </div>
 
   <!-- Nav Item - clientes -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#clients" aria-expanded="true"
-       aria-controls="collapseTwo">
-      <i class='fas fa-users'></i>
-      <span>Clientes</span>
-    </a>
-    <div id="clients" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Acciones Posibles:</h6>
-        <a class="collapse-item" href="{% url 'customer_create' %}">Crear Nuevo Cliente</a>
-        <a class="collapse-item" href="{% url 'customer_list' %}">Ver Clientes</a>
+  {% if perms.admin_website.view_customer %}
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#clients" aria-expanded="true"
+        aria-controls="collapseTwo">
+        <i class='fas fa-users'></i>
+        <span>Clientes</span>
+        <!--<i class="fas fa-lock"></i>-->
+      </a>
+      <div id="clients" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Acciones Posibles:</h6>
+          <a class="collapse-item" href="{% url 'customer_create' %}">Crear Nuevo Cliente</a>
+          <a class="collapse-item" href="{% url 'customer_list' %}">Ver Clientes</a>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  {% endif %}
 
   <!-- Nav Item - Vehiculos -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#vehicles" aria-expanded="true"
-       aria-controls="collapseTwo">
-      <i class='fas fa-car'></i>
-      <span>Vehiculos</span>
-    </a>
-    <div id="vehicles" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Acciones Posibles:</h6>
-        <a class="collapse-item" href="{% url 'vehicles_create' %}">Crear nuevo Vehiculo</a>
-        <a class="collapse-item" href="{% url 'vehicles_list' %}">Ver Vehiculos</a>
+  {% if perms.admin_website.view_vehicles %}
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#vehicles" aria-expanded="true"
+        aria-controls="collapseTwo">
+        <i class='fas fa-car'></i>
+        <span>Vehiculos</span>
+      </a>
+      <div id="vehicles" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Acciones Posibles:</h6>
+          <a class="collapse-item" href="{% url 'vehicles_create' %}">Crear nuevo Vehiculo</a>
+          <a class="collapse-item" href="{% url 'vehicles_list' %}">Ver Vehiculos</a>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  {% endif %}
 
 
   <!-- Nav Item - Empleados -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#employees" aria-expanded="true"
-       aria-controls="collapseTwo">
-      <i class='far fa-id-badge'></i>
-      <span>Empleados</span>
-    </a>
-    <div id="employees" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Acciones Posibles:</h6>
-        <a class="collapse-item" href="{% url 'employees_create' %}">Crear nuevo empleado</a>
-        <a class="collapse-item" href="{% url 'employees_list' %}">Ver empleados</a>
+  {% if perms.admin_website.view_employee %}
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#employees" aria-expanded="true"
+        aria-controls="collapseTwo">
+        <i class='far fa-id-badge'></i>
+        <span>Empleados</span>
+      </a>
+      <div id="employees" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Acciones Posibles:</h6>
+          <a class="collapse-item" href="{% url 'employees_create' %}">Crear nuevo empleado</a>
+          <a class="collapse-item" href="{% url 'employees_list' %}">Ver empleados</a>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+ {% endif %} 
 
 
   <!-- Nav Item - Aseguradoras -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#company" aria-expanded="true"
-       aria-controls="collapseTwo">
-      <i class="fas fa-city"></i>
-      <span>Aseguradoras</span>
-    </a>
-    <div id="company" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Acciones Posibles:</h6>
-        <a class="collapse-item" href="{% url 'company_create' %}">Crear nueva aseguradora</a>
-        <a class="collapse-item" href="{% url 'companies_list' %}">Ver aseguradoras</a>
+  {% if perms.admin_website.view_companies %}
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#company" aria-expanded="true"
+        aria-controls="collapseTwo">
+        <i class="fas fa-city"></i>
+        <span>Aseguradoras</span>
+      </a>
+      <div id="company" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Acciones Posibles:</h6>
+          <a class="collapse-item" href="{% url 'company_create' %}">Crear nueva aseguradora</a>
+          <a class="collapse-item" href="{% url 'companies_list' %}">Ver aseguradoras</a>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  {% endif %}
 
   <!-- Nav Item - Providers -->
 
 
   <!-- Nav Item - presuesto -->
-  <li class="nav-item">
+  <!--<li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#budget" aria-expanded="true"
        aria-controls="collapseTwo">
       <i class='fas fa-calculator'></i>
@@ -110,10 +119,10 @@
         <a class="collapse-item" href="{% url 'budget_list' %}">Ver presupuestos </a>
       </div>
     </div>
-  </li>
+  </li>-->
 
 
-  <!-- Nav Item - reparaciones -->
+  <!-- Nav Item - reparaciones 
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#repairs" aria-expanded="true"
        aria-controls="collapseTwo">
@@ -127,42 +136,42 @@
         <a class="collapse-item" href="{% url 'repair_list'%}">Ver reparaciones </a>
       </div>
     </div>
-  </li>
+  </li>-->
 
 
   <!-- disables reports - stocks -->
 
 
-  <!-- Divider -->
-  <hr class="sidebar-divider">
+  <!-- Divider 
+  <hr class="sidebar-divider"> -->
 
-  <!-- Heading -->
+  <!-- Heading 
   <div class="sidebar-heading">
     Addons
-  </div>
+  </div> -->
 
 
-  <!-- Nav Item - Charts -->
+  <!-- Nav Item - Charts 
   <li class="nav-item">
     <a class="nav-link disabled" href="charts.html">
       <i class="fas fa-fw fa-chart-area "></i>
       <span>Reportes</span></a>
-  </li>
+  </li> -->
 
 
-  <!-- Nav Item - Charts -->
+  <!-- Nav Item - Charts 
   <li class="nav-item">
     <a class="nav-link disabled" href="charts.html">
       <i class="fas fa-fw fa-chart-area "></i>
       <span>Stock</span></a>
-  </li>
+  </li> -->
 
-  <!-- Nav Item - Charts -->
+  <!-- Nav Item - Charts 
   <li class="nav-item">
     <a class="nav-link disabled" href="charts.html">
       <i class="fas fa-fw fa-chart-area "></i>
       <span>Turnos</span></a>
-  </li>
+  </li> -->
 
 
   <!-- Divider -->
