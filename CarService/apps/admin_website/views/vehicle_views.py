@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, FormView, View, ListView
@@ -26,6 +27,12 @@ class VehicleView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         """return all vehicles queryset"""
         queryset = Vehicles.objects.all()
         return queryset
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            messages.error(request, "No tienes contratado este modulo")
+            return redirect(reverse_lazy("index"))
+        return super().dispatch(request, *args, **kwargs)
 
 
 class VehicleDetailView(LoginRequiredMixin, FormView):

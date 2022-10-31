@@ -83,7 +83,7 @@
             {% else %}
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card bg-light border-left-secondary shadow h-100 py-2">
-                <a class="nav-link" href="{% url 'customer_list' %}">
+                <a class="nav-link" href="{% url 'vehicles_list' %}">
                   <div class="card-body">
                       <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
@@ -128,7 +128,7 @@
             {% else %}
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card bg-light border-left-secondary shadow h-100 py-2">
-                <a class="nav-link" href="{% url 'customer_list' %}">
+                <a class="nav-link" href="{% url 'employees_list' %}">
                   <div class="card-body">
                       <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
@@ -173,7 +173,7 @@
           {% else %}
           <div class="col-xl-3 col-md-6 mb-4">
             <div class="card bg-light border-left-secondary shadow h-100 py-2">
-              <a class="nav-link" href="{% url 'customer_list' %}">
+              <a class="nav-link" href="{% url 'companies_list' %}">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -226,51 +226,22 @@
 
           <div class="col-lg-6">
 
-              <!-- Dropdown Card Example -->
-              <div class="card shadow mb-4">
-                  <!-- Card Header - Dropdown -->
-                  <div
-                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Dropdown Card Example</h6>
-                      <div class="dropdown no-arrow">
-                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                              aria-labelledby="dropdownMenuLink">
-                              <div class="dropdown-header">Dropdown Header:</div>
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Something else here</a>
-                          </div>
-                      </div>
-                  </div>
-                  <!-- Card Body -->
-                  <div class="card-body">
-                      Dropdown menus can be placed in the card header in order to extend the functionality
-                      of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis
-                      icon in the card header can be clicked on in order to toggle a dropdown menu.
-                  </div>
-              </div>
-
-              <!-- Collapsable Card Example -->
-              <div class="card shadow mb-4">
-                  <!-- Card Header - Accordion -->
-                  <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                      role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                      <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
-                  </a>
-                  <!-- Card Content - Collapse -->
-                  <div class="collapse show" id="collapseCardExample">
-                      <div class="card-body">
-                          This is a collapsable card example using Bootstrap's built in collapse
-                          functionality. <strong>Click on the card header</strong> to see the card body
-                          collapse and expand!
-                      </div>
-                  </div>
-              </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Documentacion CarService</h6>
+                </div>
+                <div class="card-body">
+                    <p>Todo lo que necesite saber acerca del sistema CarService.</p>
+                    
+                    <h5>Obtener ayuda</h5>
+                    <ul>
+                        <li>Intente con las <a  href="#">preguntas frecuentes</a> que contienen respuesta a preguntas comunes.</li>
+                        <li>Acceda a nuestra biblioteca de <a  href="#">videos tutoriales</a></li>
+                        <li>Consulte la <a  href="#">documentacion</a> completa del sistema CarService.
+                    </ul>
+                    <p>Si en ninguna de las opciones anteriores encontro su respuesta puede crear un ticket con nuestro soporte.</p>
+                </div>
+            </div>
 
           </div>
 
@@ -294,5 +265,18 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+   <!-- sweetalert script -->
+   <script src="{% static 'vendor/sweetalert2-11.6.4/dist/sweetalert2.all.min.js' %}"></script>
+   <script>
+     {% if messages %}
+      {% for message in messages %}
+        Swal.fire({
+          icon: 'error',
+          title: '{{ message }}',
+          html: '<a href="">Contratar modulo</a>',
+        })
+        {% endfor %}
+     {% endif %}
+   </script>
 </body>
 {% endblock %}

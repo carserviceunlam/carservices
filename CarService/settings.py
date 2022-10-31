@@ -27,8 +27,7 @@ SECRET_KEY = "mst*yqt9-od=t-b2ctm07shvl0q$@s=56m1r@d*zjpgf#o3fl@"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["0.0.0.0", "35.175.149.249"]
 
 # Application definition
 
@@ -86,16 +85,27 @@ DATABASES = {
         "NAME": "carservicedb",
         "USER": "admin",
         "PASSWORD": "Service2022",
-        "HOST": "carservicedb.cs231rwbvyll.us-east-1.rds.amazonaws.com",
+        "HOST": "carservicedb.cvkrx6mlzyev.us-east-1.rds.amazonaws.com",
         "PORT": "3306",
     },
 }
+
+"""DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "admin_carservice",
+        "USER": "root",
+        "PASSWORD": "adminadmin",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
+    },
+}"""
 
 DATABASE_ROUTERS = ["CarService.db_routers.Admin_websiteRouter"]
 
 try:
     conn = MySQLdb.connect(
-        host="carservicedb.cs231rwbvyll.us-east-1.rds.amazonaws.com",
+        host="carservicedb.cvkrx6mlzyev.us-east-1.rds.amazonaws.com",
         user="admin",
         passwd="Service2022",
         db="carservicedb",
@@ -113,7 +123,7 @@ try:
                 "NAME": f"{row[0]}",
                 "USER": "admin",
                 "PASSWORD": "Service2022",
-                "HOST": "carservicedb.cs231rwbvyll.us-east-1.rds.amazonaws.com",
+                "HOST": "carservicedb.cvkrx6mlzyev.us-east-1.rds.amazonaws.com",
                 "PORT": "3306",
             },
         }
@@ -128,6 +138,42 @@ try:
     conn.close()
 except Exception:
     pass
+
+"""try:
+    conn = MySQLdb.connect(
+        host="127.0.0.1",
+        user="root",
+        passwd="adminadmin",
+        db="admin_carservice",
+    )
+    cursor = conn.cursor()
+    cursor.execute("SELECT username FROM admin_carservice.auth_user")
+    # row = cursor.fetchone()
+    # print(row[0])
+
+    for row in cursor:
+        # print(row[0])
+        _DATABASES = {
+            row[0]: {
+                "ENGINE": "django.db.backends.mysql",
+                "NAME": f"{row[0]}",
+                "USER": "root",
+                "PASSWORD": "adminadmin",
+                "HOST": "127.0.0.1",
+                "PORT": "3306",
+            },
+        }
+        for k, v in _DATABASES.items():
+            if k in DATABASES:
+                DATABASES[k].update(v)
+            else:
+                DATABASES[k] = v
+            # print(DATABASES)
+
+    cursor.close()
+    conn.close()
+except Exception:
+    pass"""
 
 
 # Password validation

@@ -1,13 +1,20 @@
 .bg-login-image {
-    background: url(../images/login_banner.jpg)!important;
-    background-position: center!important;
-    background-size: cover!important;
-    background-repeat: no-repeat!important;
+    background: url(../images/login_banner4.jpg) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+.bg-image {
+    background: url(../images/background.jpg) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
 }
 
 .htitle {
     font-size: 32px;
-    color: #fff!important;
+    color: #fff !important;
 
 }
 
@@ -17,26 +24,26 @@
 }
 
 .form-control-user {
-    border-radius: 0!important;
-    padding: 1.5rem 0!important;
-    background: transparent!important;
-    border: 0px solid transparent!important;
-    border-bottom: 1px solid #b9b9b9!important;
-    font-size: 16px!important;
-    color: #b9b9b9!important;
+    border-radius: 0 !important;
+    padding: 1.5rem 0 !important;
+    background: transparent !important;
+    border: 0px solid transparent !important;
+    border-bottom: 1px solid #b9b9b9 !important;
+    font-size: 16px !important;
+    color: #b9b9b9 !important;
 }
 
 
 .form-control-user:focus {
-    outline: none!important;
+    outline: none !important;
 }
 
 .top-div {
-    min-width: 100vw!important;
-    max-height: 16em!important;
+    min-width: 100vw !important;
+    max-height: 16em !important;
     background-color: #4e73df;
-    margin-left: 0!important;
-    margin-right: 0!important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 .login-title {

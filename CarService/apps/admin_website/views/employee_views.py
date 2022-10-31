@@ -9,6 +9,7 @@ from CarService.apps.admin_website.views.serializers.employee_serializer import 
 )
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, FormView, View
@@ -31,6 +32,12 @@ class EmployeePage(LoginRequiredMixin, PermissionRequiredMixin, View):
         print(self.request.user.get_all_permissions())
         employees = Employee.objects.all()
         return render(request, self.template_name, {"employees": employees})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            messages.error(request, "No tienes contratado este modulo")
+            return redirect(reverse_lazy("index"))
+        return super().dispatch(request, *args, **kwargs)
 
 
 class EmployeeCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
