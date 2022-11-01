@@ -28,6 +28,7 @@ SECRET_KEY = "mst*yqt9-od=t-b2ctm07shvl0q$@s=56m1r@d*zjpgf#o3fl@"
 DEBUG = True
 
 ALLOWED_HOSTS = ["0.0.0.0", "35.175.149.249"]
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -93,7 +94,7 @@ DATABASES = {
 """DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "admin_carservice",
+        "NAME": "carservicedb",
         "USER": "root",
         "PASSWORD": "adminadmin",
         "HOST": "127.0.0.1",
@@ -116,11 +117,11 @@ try:
     # print(row[0])
 
     for row in cursor:
-        # print(row[0])
+        print(row[0][:4])
         _DATABASES = {
-            row[0]: {
+            row[0][:4]: {
                 "ENGINE": "django.db.backends.mysql",
-                "NAME": f"{row[0]}",
+                "NAME": f"{row[0][:4]}",
                 "USER": "admin",
                 "PASSWORD": "Service2022",
                 "HOST": "carservicedb.cvkrx6mlzyev.us-east-1.rds.amazonaws.com",
@@ -144,19 +145,19 @@ except Exception:
         host="127.0.0.1",
         user="root",
         passwd="adminadmin",
-        db="admin_carservice",
+        db="carservicedb",
     )
     cursor = conn.cursor()
-    cursor.execute("SELECT username FROM admin_carservice.auth_user")
+    cursor.execute("SELECT username FROM carservicedb.auth_user")
     # row = cursor.fetchone()
     # print(row[0])
 
     for row in cursor:
-        # print(row[0])
+        print(row[0][:4])
         _DATABASES = {
-            row[0]: {
+            row[0][:4]: {
                 "ENGINE": "django.db.backends.mysql",
-                "NAME": f"{row[0]}",
+                "NAME": f"{row[0][:4]}",
                 "USER": "root",
                 "PASSWORD": "adminadmin",
                 "HOST": "127.0.0.1",
@@ -168,7 +169,7 @@ except Exception:
                 DATABASES[k].update(v)
             else:
                 DATABASES[k] = v
-            # print(DATABASES)
+            print(DATABASES)
 
     cursor.close()
     conn.close()

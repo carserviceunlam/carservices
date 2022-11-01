@@ -13,5 +13,7 @@ class IndexView(LoginRequiredMixin, ListView):
     template_name = "index.html"
 
     def get_queryset(self):
+        IndexView.database = self.request.user.username[:4]
+        # print(database)
         queryset = Budget.objects.all()
         return queryset

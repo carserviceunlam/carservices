@@ -28,7 +28,8 @@ class EmployeePage(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            EmployeePage.username = self.request.user.username
+            EmployeePage.username = self.request.user.username[:4]
+            # print(EmployeePage.username)
         print(self.request.user.get_all_permissions())
         employees = Employee.objects.all()
         return render(request, self.template_name, {"employees": employees})
