@@ -15,16 +15,16 @@ class IndexView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         IndexView.database = self.request.user.username[:4]
-        conn = MySQLdb.connect(
+        """conn = MySQLdb.connect(
             host="carservicedb.cvkrx6mlzyev.us-east-1.rds.amazonaws.com",
             user="admin",
             passwd="Service2022",
-            db=IndexView.database,
+            db="carservicedb",
         )
-        cursor = conn.cursor()
-        cursor.execute(f"SELECT name FROM {IndexView.database}.Website")
-        cursor.close()
-        conn.close()
+        cursor1 = conn.cursor()
+        cursor1.execute("SELECT id FROM carservicedb.service_customer WHERE ")
+        cursor1.close()
+        conn.close()"""
         # print(database)
         queryset = Budget.objects.all()
         return queryset
