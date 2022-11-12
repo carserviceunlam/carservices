@@ -22,7 +22,7 @@ class IndexView(LoginRequiredMixin, ListView):
             db=IndexView.database,
         )
         cursor = conn.cursor()
-        cursor.execute(f"SELECT name FROM {IndexView.database}.website")
+        cursor.execute(f"SELECT name FROM {IndexView.database}.Website")
         cursor.close()
         conn.close()
         # print(database)
