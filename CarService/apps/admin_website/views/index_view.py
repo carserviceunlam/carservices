@@ -15,6 +15,7 @@ class IndexView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         IndexView.database = self.request.user.username[:4]
+        website = self.request.user.username[5:]
         """conn = MySQLdb.connect(
             host="carservicedb.cvkrx6mlzyev.us-east-1.rds.amazonaws.com",
             user="admin",
