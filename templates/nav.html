@@ -21,8 +21,8 @@
     </form>
 
     
-
-    <a class="btn btn-primary" target="_blank" href="http://carservice.com/{% user.username[2:4] %}" role="button">Pagina Comercial</a>
+    {% set website = user.username %}
+    <a class="btn btn-primary" target="_blank" href="http://carservice.com/{{ website[2:4] }}" role="button">Pagina Comercial</a>
 
 
     <!-- Topbar Navbar -->
